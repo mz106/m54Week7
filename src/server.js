@@ -6,13 +6,13 @@ const app = express();
 app.use(express.json());
 
 const connection = async () => {
-  await mongoose.connect(
-    "mongodb+srv://michael:b8y6ZekZY5HNPQEm@cluster0.ntmsxeg.mongodb.net/m54Week7"
-  );
+  await mongoose.connect("");
   console.log("DB connection is working");
 };
 
 connection();
+
+// mongoose docs: https://mongoosejs.com/docs/guide.html
 
 const bookSchema = new mongoose.Schema({
   title: {
@@ -30,14 +30,20 @@ const bookSchema = new mongoose.Schema({
 
 const Book = mongoose.model("Book", bookSchema);
 
+// https://mongoosejs.com/docs/models.html (look at constructing documents)
+app.post("/books", (request, response) => {});
+
+// https://mongoosejs.com/docs/api/model.html#Model.find()
 app.get("/books", (request, response) => {});
 
 app.get("/books/getfirstbook", (request, response) => {});
 
-app.post("/books", (request, response) => {});
-
+// https://mongoosejs.com/docs/api/model.html#Model.findOneAndUpdate()
+//              Or !!!!!!!!!!!!!!!!!!!!!
+// https://mongoosejs.com/docs/api/model.html#Model.updateOne()
 app.put("/books", (request, reponse) => {});
 
+// https://mongoosejs.com/docs/guide.html - you'll have to look at the docs and figure this one out!
 app.delete("/books", (request, response) => {});
 
 app.listen(5001, () => {
