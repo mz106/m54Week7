@@ -37,13 +37,34 @@ const logTypeOfResult = async (result) => {
 
 // https://mongoosejs.com/docs/models.html (look at constructing documents)
 // Add a single book to the db
-app.post("/books", (request, response) => {
+app.post("/books/addBook", async (request, response) => {
   // Add a single book to the db
+  console.log("request.body: ", request.body);
+  const book = await Book.create({
+    title: request.body.title,
+    author: request.body.author,
+    genre: request.body.genre,
+  });
+  console.log("book: ", book);
+  response.send({ message: "success book created", book: book });
 });
 
+// const objTwo = {
+//   thing: "stuff",
+//   beans: "toast",
+// };
+
+// const myObj = {
+//   name: "z",
+//   isAwesome: true,
+//   objTwo: objTwo,
+// };
+
 // https://mongoosejs.com/docs/api/model.html#Model.find()
-app.get("/books", (request, response) => {
+app.get("/books/getAllBooks", async (request, response) => {
   // get all books from the db
+  const books = await Book.find({}); // sends request to db and gets back response
+  response.send({ message: "success all the books", books: books }); // this is sent to client BEFORE response gets back from db
 });
 
 // https://mongoosejs.com/docs/api/model.html#Model.findOneAndUpdate()
