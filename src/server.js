@@ -30,18 +30,27 @@ const bookSchema = new mongoose.Schema({
 
 const Book = mongoose.model("Book", bookSchema);
 
+const logTypeOfResult = async (result) => {
+  console.log(`Typeof result: ${typeof result} - result: ${result}`);
+};
+
 // https://mongoosejs.com/docs/models.html (look at constructing documents)
-app.post("/books", (request, response) => {});
+// Add a single book to the db
+app.post("/books", (request, response) => {
+  // Add a single book to the db
+});
 
 // https://mongoosejs.com/docs/api/model.html#Model.find()
-app.get("/books", (request, response) => {});
-
-app.get("/books/getfirstbook", (request, response) => {});
+app.get("/books", (request, response) => {
+  // get all books from the db
+});
 
 // https://mongoosejs.com/docs/api/model.html#Model.findOneAndUpdate()
 //              Or !!!!!!!!!!!!!!!!!!!!!
 // https://mongoosejs.com/docs/api/model.html#Model.updateOne()
-app.put("/books", (request, reponse) => {});
+app.put("/books", (request, reponse) => {
+  // update a single book's author by title
+});
 
 // https://mongoosejs.com/docs/guide.html - you'll have to look at the docs and figure this one out!
 app.delete("/books", (request, response) => {});
