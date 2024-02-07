@@ -25,21 +25,16 @@ app.get("/books/getfirstbook", (request, response) => {
 });
 
 app.post("/books", (request, response) => {
-  console.log("title: ", request.body.title);
-  console.log("genre: ", request.body.genre);
-  console.log("author: ", request.body.author);
-
   fakeArr.push(request.body);
 
-  let awesome;
-  for (let i = 0; i < fakeArr.length; i++) {
-    if (fakeArr[i].title === request.body.title) {
-      awesome = "it's awsome";
-    }
-  }
-  console.log(awesome);
-  response.send({ message: "success", newBook: fakeArr[fakeArr.length - 1] });
+  response.send({ message: "success", book: fakeArr[fakeArr.length - 1] });
 });
+
+// app.post("/books", (request, response) => {
+//   fakeArr.push(request.body);
+
+//   response.send({ message: "success", newBook: fakeArr[fakeArr.length - 1] });
+// });
 
 app.put("/books", (request, reponse) => {
   // in here, find a book by title (i.e. an element of fakeArr where the element title is the same as request.body.title)
