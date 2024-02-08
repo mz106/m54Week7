@@ -2,52 +2,23 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 
+const connection = require("./db/connection");
+
+const bookRouter = require("./books/routes");
+
 const app = express();
 
 app.use(express.json());
 
-const connection = async () => {
-  await mongoose.connect(process.env.MONGO_URI);
-  console.log("DB connection is working");
-};
-
 connection();
 
+app.use(bookRouter);
+
 // mongoose docs: https://mongoosejs.com/docs/guide.html
-
-const bookSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  author: {
-    type: String,
-  },
-  genre: {
-    type: String,
-  },
-});
-
-const Book = mongoose.model("Book", bookSchema);
 
 const logTypeOfResult = async (result) => {
   console.log(`Typeof result: ${typeof result} - result: ${result}`);
 };
-
-// https://mongoosejs.com/docs/models.html (look at constructing documents)
-// Add a single book to the db
-app.post("/books/addBook", async (request, response) => {
-  // Add a single book to the db
-  console.log("request.body: ", request.body);
-  const book = await Book.create({
-    title: request.body.title,
-    author: request.body.author,
-    genre: request.body.genre,
-  });
-  console.log("book: ", book);
-  response.send({ message: "success book created", book: book });
-});
 
 // const objTwo = {
 //   thing: "stuff",
@@ -64,6 +35,9 @@ app.post("/books/addBook", async (request, response) => {
 app.get("/books/getAllBooks", async (request, response) => {
   // get all books from the db
   const books = await Book.find({}); // sends request to db and gets back response
+
+  await logTypeOfResult(books);
+
   response.send({ message: "success all the books", books: books }); // this is sent to client BEFORE response gets back from db
 });
 
